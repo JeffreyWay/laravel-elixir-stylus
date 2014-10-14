@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir-stylus",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Laravel Elixir Stylus Extension",
   "main": "index.js",
   "scripts": {

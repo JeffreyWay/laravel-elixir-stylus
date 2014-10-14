@@ -30,7 +30,7 @@ elixir.extend('stylus', function(src, output) {
             .pipe(stylus()).on('error', onError)
             .pipe(autoprefixer())
             .pipe(gulpif(config.production, minify()))
-            .pipe(gulp.dest(config.preprocessors.stylus.output))
+            .pipe(gulp.dest(output || config.cssOutput))
             .pipe(notify({
                 title: 'Laravel Elixir',
                 subtitle: 'Stylus Compiled!',
