@@ -28,7 +28,7 @@ elixir.extend('stylus', function(src, output) {
                 icon: __dirname + '/../laravel-elixir/icons/fail.png'
             })(err);
 
-            config.emit('end');
+            this.emit('end');
         };
 
         return gulp.src(config.preprocessors.stylus.src)
