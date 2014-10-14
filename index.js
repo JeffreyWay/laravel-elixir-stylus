@@ -6,9 +6,8 @@ var minify = require('gulp-minify-css');
 var gulpif = require('gulp-if');
 var elixir = require('laravel-elixir');
 
-
-// Register the task with Elixir.
 elixir.extend('stylus', function(src, output) {
+
     var config = this;
 
     var paths = config.preprocessors.stylus = {
@@ -16,8 +15,6 @@ elixir.extend('stylus', function(src, output) {
         search: '/**/*.styl',
         output: output || config.cssOutput
     };
-
-    config.preprocessor('stylus', paths.src, paths.output);
 
     gulp.task('stylus', function() {
         var onError = function(err) {
@@ -44,5 +41,6 @@ elixir.extend('stylus', function(src, output) {
             }));
     });
 
-    return this;
+    return config.addPreprocessor('stylus', paths.src, paths.output);
+
 });
