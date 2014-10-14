@@ -42,4 +42,6 @@ elixir.extend('stylus', 'stylus', function(src, output) {
     };
 
     this.preprocessor('stylus', src, output);
+
+    return this;
 });
