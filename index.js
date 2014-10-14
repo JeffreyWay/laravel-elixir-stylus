@@ -10,11 +10,9 @@ elixir.extend('stylus', function(src, output) {
 
     var config = this;
 
-    var paths = config.preprocessors.stylus = {
-        src: src || '/stylus',
-        search: '/**/*.styl',
-        output: output || config.cssOutput
-    };
+    var baseDir = config.preprocessors.baseDir + 'stylus';
+
+    src = this.buildGulpSrc(src, baseDir, '**/*.styl');
 
     gulp.task('stylus', function() {
         var onError = function(err) {
@@ -28,7 +26,7 @@ elixir.extend('stylus', function(src, output) {
             this.emit('end');
         };
 
-        return gulp.src(config.preprocessors.stylus.src)
+        return gulp.src(src)
             .pipe(stylus()).on('error', onError)
             .pipe(autoprefixer())
             .pipe(gulpif(config.production, minify()))
@@ -41,6 +39,8 @@ elixir.extend('stylus', function(src, output) {
             }));
     });
 
-    return config.addPreprocessor('stylus', paths.src, paths.output);
+    this.registerWatcher('stylus', baseDir + '/**/*.styl');
+
+    return this.queueTask('stylus');
 
 });
