@@ -1,6 +1,6 @@
 {
   "name": "laravel-elixir-stylus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Laravel Elixir Stylus Extension",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,16 @@
     "stylus",
     "gulp"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JeffreyWay/laravel-elixir-stylus"
+  },
   "author": "Jeffrey Way",
   "license": "MIT",
+  "homepage": "https://github.com/JeffreyWay/laravel-elixir-stylus",
+  "bugs": {
+    "url": "https://github.com/JeffreyWay/laravel-elixir-stylus/issues"
+  },
   "dependencies": {
     "gulp-autoprefixer": "^1.0.1",
     "gulp-if": "^1.2.5",
