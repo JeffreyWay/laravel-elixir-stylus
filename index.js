@@ -5,6 +5,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
 var gulpif = require('gulp-if');
 var elixir = require('laravel-elixir');
+var utilities = require('laravel-elixir/ingredients/helpers/Utilities');
 
 elixir.extend('stylus', function(src, output) {
 
@@ -12,7 +13,7 @@ elixir.extend('stylus', function(src, output) {
 
     var baseDir = config.assetsDir + 'stylus';
 
-    src = this.buildGulpSrc(src, baseDir, '**/*.styl');
+    src = utilities.buildGulpSrc(src, baseDir, '**/*.styl');
 
     gulp.task('stylus', function() {
         var onError = function(err) {
