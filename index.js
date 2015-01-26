@@ -5,7 +5,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var minify = require('gulp-minify-css');
 var gulpif = require('gulp-if');
 var elixir = require('laravel-elixir');
-var utilities = require('laravel-elixir/ingredients/helpers/Utilities');
+var utilities = require('laravel-elixir/ingredients/commands/Utilities');
 
 elixir.extend('stylus', function(src, output) {
 
