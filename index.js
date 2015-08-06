@@ -1,47 +1,58 @@
-var gulp = require('gulp');
-var notify = require('gulp-notify');
-var stylus = require('gulp-stylus');
-var autoprefixer = require('gulp-autoprefixer');
-var minify = require('gulp-minify-css');
-var gulpif = require('gulp-if');
-var elixir = require('laravel-elixir');
-var utilities = require('laravel-elixir/ingredients/commands/Utilities');
+var gulp    = require('gulp');
+var compile = require('./shared/Css');
+var postStylus = require('poststylus');
+var Elixir = require('laravel-elixir');
 
-elixir.extend('stylus', function(src, output) {
+var config = Elixir.config;
 
-    var config = this;
 
-    var baseDir = config.assetsDir + 'stylus';
+/*
+ |----------------------------------------------------------------
+ | Stylus Compilation Task
+ |----------------------------------------------------------------
+ |
+ | This task will compile your Stylus, including minification and
+ | and auto-prefixing. Additionally it supports any postStylus
+ | plugins that you want to include with your compilation.
+ |
+ */
 
-    src = utilities.buildGulpSrc(src, baseDir, '**/*.styl');
+Elixir.extend('stylus', function(src, output, options) {
+    config.css.stylus = {
+        folder: 'stylus',
 
-    gulp.task('stylus', function() {
-        var onError = function(err) {
-            notify.onError({
-                title:    "Laravel Elixir",
-                subtitle: "Stylus Compilation Failed!",
-                message:  "Error: <%= error.message %>",
-                icon: __dirname + '/../laravel-elixir/icons/fail.png'
-            })(err);
+        pluginOptions: {
+            use: [
+                postStylus(['lost'])
+            ]
+        }
+    };
 
-            this.emit('end');
-        };
+    new Elixir.Task('stylus', function() {
+        var paths = prepGulpPaths(src, output);
 
-        return gulp.src(src)
-            .pipe(stylus()).on('error', onError)
-            .pipe(autoprefixer())
-            .pipe(gulpif(config.production, minify()))
-            .pipe(gulp.dest(output || config.cssOutput))
-            .pipe(notify({
-                title: 'Laravel Elixir',
-                subtitle: 'Stylus Compiled!',
-                icon: __dirname + '/../laravel-elixir/icons/laravel.png',
-                message: ' '
-            }));
-    });
-
-    this.registerWatcher('stylus', baseDir + '/**/*.styl');
-
-    return this.queueTask('stylus');
-
+        return compile({
+            name: 'Stylus',
+            compiler: require('gulp-stylus'),
+            src: paths.src,
+            output: paths.output,
+            task: this,
+            pluginOptions: options || config.css.stylus.pluginOptions
+        });
+    })
+    .watch(config.get('assets.css.stylus.folder') + '/**/*.styl');
 });
+
+
+/**
+ * Prep the Gulp src and output paths.
+ *
+ * @param  {string|array} src
+ * @param  {string|null}  output
+ * @return {object}
+ */
+var prepGulpPaths = function(src, output) {
+    return new Elixir.GulpPaths()
+        .src(src, config.get('assets.css.stylus.folder'))
+        .output(output || config.get('public.css.outputFolder'), 'app.css');
+};
