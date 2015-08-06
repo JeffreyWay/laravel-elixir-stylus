@@ -1,6 +1,6 @@
 ## Usage
 
-This is a simple wrapper around Laravel Elixir. 
+This Laravel Elixir extension allows you to compile Stylus.
 
 ## Installation
 
