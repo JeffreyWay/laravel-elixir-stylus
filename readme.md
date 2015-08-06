@@ -1,25 +1,65 @@
 ## Usage
 
-This is a simple wrapper around Laravel Elixir. Add it to your Elixir-enhanced Gulpfile, like so:
+This is a simple wrapper around Laravel Elixir. 
+
+## Installation
+
+First, pull in the extension through NPM.
 
 ```
+   npm install --save-dev laravel-elixir-stylus
+```
+
+Next, add it to your Elixir-enhanced Gulpfile, like so:
+
+```js
 var elixir = require('laravel-elixir');
 
 require('laravel-elixir-stylus');
 
 elixir(function(mix) {
-   mix.stylus();
+   mix.stylus('app.styl');
 });
 ```
 
-This will scan your `resources/assets/stylus` directory for all files. Instead, if you only want to compile a single file, you may do:
+That's it! You're all set to go!
+
+## Usage
+
+Assuming you write...
+
+```js
+elixir(function(mix) {
+   mix.stylus('app.styl');
+});
+```
+
+...this will compile your `resources/assets/stylus/app.styl` file to `./public/css/app.css`.
+
+If you'd like to set a different output directory, you may pass a second argument to the `stylus()` method, like so:
+
+```js
+mix.stylus('app.styl', './public/scripts/styles.css')
+```
+
+Finally, if you want to override the Stylus plugin options, you may pass an object as the third argument.
 
 ```
-mix.stylus("bootstrap.styl");
+mix.stylus('app.styl', null, {});
+
+// See options at: https://www.npmjs.com/package/gulp-stylus#options
 ```
 
-Finally, if you'd like to output to a different directory than the default `public/css`, then you may override this as well.
+## PostCSS
+
+This extension includes a PostCSS adapter out of the box. It even includes support for the incredibly impressive ![Lost](https://github.com/corysimmons/lost) grid system. Check out the documentation in that link, and immediately start using it in your projects with this extension. :)
+
+If there are other PostCSS plugins you want to pull in, you may use the third argument to `mix.stylus()` - 
 
 ```
-mix.stylus("bootstrap.styl", "public/css/foo/bar/");
+var postStylus = require('poststylus'); // npm install --save-dev poststylus
+
+mix.stylus('app.styl', null, {
+   use: [postStylus(['lost', 'postcss-position'])
+});
 ```
