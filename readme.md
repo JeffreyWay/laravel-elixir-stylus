@@ -60,6 +60,6 @@ If there are other PostCSS plugins you want to pull in, you may use the third ar
 var postStylus = require('poststylus'); // npm install --save-dev poststylus
 
 mix.stylus('app.styl', null, {
-   use: [postStylus(['lost', 'postcss-position'])
+   use: [postStylus(['lost', 'postcss-position'])]
 });
 ```
