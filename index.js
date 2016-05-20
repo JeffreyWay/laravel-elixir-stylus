@@ -1,7 +1,7 @@
 var gulp    = require('gulp');
 var postStylus = require('poststylus');
 var Elixir = require('laravel-elixir');
-var compile = require('laravel-elixir/tasks/shared/Css');
+var compile = require('laravel-elixir/dist/tasks/shared/Css').default;
 
 var config = Elixir.config;
 
