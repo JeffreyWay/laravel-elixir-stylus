@@ -1,10 +1,5 @@
-var gulp    = require('gulp');
-var postStylus = require('poststylus');
-var Elixir = require('laravel-elixir');
-var compile = require('laravel-elixir/dist/tasks/shared/Css').default;
-
-var config = Elixir.config;
-
+var _ = require('underscore');
+var CssTask = require('laravel-elixir/dist/tasks/conductors/CssTask').default;
 
 /*
  |----------------------------------------------------------------
@@ -17,30 +12,20 @@ var config = Elixir.config;
  |
  */
 
+Elixir.config.css.stylus = {
+    folder: 'stylus',
+    search: '/**/*.styl',
+    plugin: require('gulp-stylus'),
+    pluginOptions: {
+        use: [
+            require('poststylus')(['lost'])
+        ]
+    }
+};
+
+
 Elixir.extend('stylus', function(src, output, options) {
-    config.css.stylus = {
-        folder: 'stylus',
-
-        pluginOptions: {
-            use: [
-                postStylus(['lost'])
-            ]
-        }
-    };
-
-    new Elixir.Task('stylus', function() {
-        var paths = prepGulpPaths(src, output);
-
-        return compile({
-            name: 'Stylus',
-            compiler: require('gulp-stylus'),
-            src: paths.src,
-            output: paths.output,
-            task: this,
-            pluginOptions: options || config.css.stylus.pluginOptions
-        });
-    })
-    .watch(config.get('assets.css.stylus.folder') + '/**/*.styl');
+    new CssTask('stylus', getPaths(src, output), options || {});
 });
 
 
@@ -51,8 +36,8 @@ Elixir.extend('stylus', function(src, output, options) {
  * @param  {string|null}  output
  * @return {object}
  */
-var prepGulpPaths = function(src, output) {
+var getPaths = function(src, output) {
     return new Elixir.GulpPaths()
-        .src(src, config.get('assets.css.stylus.folder'))
-        .output(output || config.get('public.css.outputFolder'), 'app.css');
+        .src(src, Elixir.config.get('assets.css.stylus.folder'))
+        .output(output || Elixir.config.get('public.css.outputFolder'), 'app.css');
 };
