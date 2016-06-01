@@ -10,6 +10,8 @@ First, pull in the extension through NPM.
 npm install --save-dev laravel-elixir-stylus
 ```
 
+> Note: if using Laravel Elixir 6 or higher, pull in `laravel-elixir-stylus@2.x`. Otherwise, stick with `laravel-elixir-stylus@1.x`.
+
 Next, add it to your Elixir-enhanced Gulpfile, like so:
 
 ```js
