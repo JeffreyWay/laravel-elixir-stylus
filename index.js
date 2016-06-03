@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var CssTask = require('laravel-elixir/dist/tasks/conductors/CssTask').default;
+var CssTask = require('laravel-elixir/dist/tasks/CssTask').default;
 
 /*
  |----------------------------------------------------------------
