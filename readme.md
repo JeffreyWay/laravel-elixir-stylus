@@ -12,18 +12,6 @@ npm install --save-dev laravel-elixir-stylus
 
 > Note: if using Laravel Elixir 6 or higher, pull in `laravel-elixir-stylus@2.x`. Otherwise, stick with `laravel-elixir-stylus@1.x`.
 
-Next, add it to your Elixir-enhanced Gulpfile, like so:
-
-```js
-var elixir = require('laravel-elixir');
-
-require('laravel-elixir-stylus');
-
-elixir(function(mix) {
-   mix.stylus('app.styl');
-});
-```
-
 That's it! You're all set to go!
 
 ## Usage
