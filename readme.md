@@ -42,7 +42,7 @@ mix.stylus('app.styl', null, {});
 
 ## PostCSS
 
-This extension includes a PostCSS adapter out of the box, as well as support for the incredibly impressive [Lost](https://github.com/corysimmons/lost) grid system. Check out the documentation in that link, and immediately start using it in your projects with this extension. Zero setup. :)
+This extension includes a PostCSS adapter out of the box, as well as support for the incredibly impressive [Lost](https://github.com/peterramsing/lost) grid system. Check out the documentation in that link, and immediately start using it in your projects with this extension. Zero setup. :)
 
 If there are other PostCSS plugins you want to pull in, you may use the third argument to `mix.stylus()` - 
 
